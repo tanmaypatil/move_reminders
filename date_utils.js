@@ -12,6 +12,15 @@ function getTodaysDate() {
     return str;
 }
 
+function getCurrentDateWithTime() {
+    console.log(`getCurrentDateWithTime in`);
+    let d = new Date();
+    str = format(d,'dd-MM-yyyy HH:mm:ss');
+    console.log(str);
+    console.log(`getCurrentDateWithTime out : ${str}`);
+    return str;
+}
+
 
 function addDuration(durationType , duration ,contextDate ) {
     console.log(`addDuration  : durationType : ${durationType} , duration : ${duration} , contextDate : ${contextDate} ` )
@@ -39,5 +48,6 @@ function addDuration(durationType , duration ,contextDate ) {
 
 module.exports = {
     getTodaysDate : getTodaysDate,
+    getCurrentDateWithTime : getCurrentDateWithTime,
     addDuration :  addDuration
 }

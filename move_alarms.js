@@ -1,6 +1,7 @@
 var AWS = require("aws-sdk");
-let date_util = require('./date_util');
+let date_util = require('./date_utils');
 let util = require("./utils");
+const { v4: uuidv4 } = require('uuid');
 let endpoint = util.get_endpoint();
 
 AWS.config.update({
@@ -17,12 +18,12 @@ async function move_alarm(alarm_id , alarm_date) {
     var params = {
         TableName: "user_alarms",
         IndexName: "entity_id-index",
-        KeyConditionExpression: "#alarm_id = :alarm_id  ",
+        KeyConditionExpression: "#entity_id = :entity_id  ",
         ExpressionAttributeNames: {
-            "#alarm_id": "alarm_id"
+            "#entity_id": "entity_id"
         },
         ExpressionAttributeValues: {
-            ":alarm_id": alarm_id
+            ":entity_id": alarm_id
         }
     };
   
@@ -56,19 +57,14 @@ async function queryAlarm(params) {
 }
 
 async function deleteAlarm(alarm ) {
+    console.log('inside deleteAlarm '+alarm.alarm_date);
     var delParams = {
         TableName: "user_alarms",
         Key:{
-            "#alarm_type": "reminder",
-            "#alarm_date": ":alarm_date"
+            "alarm_type": "reminder",
+            "alarm_date": alarm.alarm_date
         },
-        ConditionExpression: "#alarm_date = :alarm_date  ",
-        ExpressionAttributeNames: {
-            "#alarm_date": "alarm_date"
-        },
-        ExpressionAttributeValues: {
-            ":alarm_date": alarm.alarm_date
-        }
+
     };
     return new Promise((resolve, reject) => {
         docClient.delete(delParams, function (err, data) {
@@ -91,12 +87,11 @@ function insertAlarm(alarm) {
         let old_date = alarm.alarm_date;
         let duration_type = alarm.frequency;
         let new_alarmdate = date_util.addDuration(duration_type, 1, old_date);
+        let current_datetime = date_util.getCurrentDateWithTime();
         console.log('insertAlarm : old_date is : ' + old_date);
         console.log('insertAlarm : new_alarmdate is : ' + new_alarmdate);
         // generate new alarm id 
-        let id = alarm.entity_id.substr(1);
-        let new_id =  parseInt(id) + 1 ;
-        let entity_id = 'a' + new_id.toString();
+        let entity_id  = uuidv4();
         console.log('insertAlarm new alarm id '+entity_id);
         // want to insert a new alarm with new_alarmdate 
         var params = {
@@ -109,7 +104,8 @@ function insertAlarm(alarm) {
                 "description": alarm.description,
                 "frequency": alarm.frequency,
                 "day": alarm.day,
-                "type": "generated"
+                "type": "generated",
+                "time_stamp" : current_datetime
 
             }
         };
@@ -126,7 +122,7 @@ function insertAlarm(alarm) {
     });
 }
 
-move_alarm('a3',)
+move_alarm('a3','20211008');
 
 module.exports = {
     insertAlarm : insertAlarm
