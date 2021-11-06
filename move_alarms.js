@@ -84,6 +84,7 @@ async function deleteAlarm(alarm ) {
 
 function insertAlarm(alarm) {
     return new Promise(function (resolve, reject) {
+        console.log("insertAlarm : IN");
         let old_date = alarm.alarm_date;
         let duration_type = alarm.frequency;
         let new_alarmdate = date_util.addDuration(duration_type, 1, old_date);
