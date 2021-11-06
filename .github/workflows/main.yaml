@@ -1,4 +1,4 @@
-name: Deploy lambda moce alarm
+name: Deploy lambda move alarm
 on: [push]
 jobs:
   build:
