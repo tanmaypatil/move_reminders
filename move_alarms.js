@@ -12,7 +12,7 @@ AWS.config.update({
 var docClient = new AWS.DynamoDB.DocumentClient();
 
 
-async function move_alarm(alarm_id , alarm_date) {
+async function moveAlarm(alarm_id , alarm_date) {
     // select old alarm using alarm_id 
     console.log(` inside move_alarm - ${alarm_id} and ${alarm_date}`);
     var params = {
