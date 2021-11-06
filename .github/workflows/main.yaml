@@ -1,0 +1,21 @@
+name: Deploy lambda moce alarm
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: secrets
+    steps:
+    - uses: actions/checkout@master
+    - name: Archive Release
+      uses: thedoctor0/zip-release@master
+      with:
+        type: 'zip'
+        filename: 'move_alarm.zip'
+        exclusions: '*.git* /*node_modules/*  launch.json *.zip *.sh *.bat *.md LICENSE'
+    - name: upload lambda function zip file
+      run: |
+       aws lambda update-function-code --function-name move-alarms --zip-file fileb://move_alarm.zip
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: 'ap-south-1'
