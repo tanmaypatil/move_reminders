@@ -126,7 +126,8 @@ function insertAlarm(alarm) {
 move_alarm('a3','20211008');
 
 module.exports = {
-    insertAlarm : insertAlarm
+    insertAlarm : insertAlarm,
+    moveAlarm : moveAlarm
 
 }
 

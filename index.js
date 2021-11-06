@@ -8,7 +8,7 @@ exports.handler =  async function(event, context) {
       console.log('mandatory argument not provided');
       return Error('Either alarmDate or alarmId should be provided');
     }
-    move_alarms(event.alarmDate,event.alarmId);
+    await move_alarms.moveAlarm(event.alarmDate,event.alarmId);
 
     return context.logStreamName
   }
