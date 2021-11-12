@@ -16,14 +16,11 @@ async function moveAlarm(alarm_id , alarm_date) {
     // select old alarm using alarm_id 
     console.log(` inside move_alarm - ${alarm_id} and ${alarm_date}`);
     var params = {
-        TableName: "user_alarms",
-        IndexName: "entity_id-index",
-        KeyConditionExpression: "#entity_id = :entity_id  ",
-        ExpressionAttributeNames: {
-            "#entity_id": "entity_id"
-        },
+        TableName: 'user_alarms',
+        IndexName: 'entity_id-index',
+        KeyConditionExpression: 'entity_id = :entity_id',
         ExpressionAttributeValues: {
-            ":entity_id": alarm_id
+            ':entity_id': alarm_id
         }
     };
   
@@ -42,7 +39,7 @@ async function queryAlarm(params) {
                 console.error("query_alarm : Unable to query. Error:", JSON.stringify(err, null, 2));
                 reject(err);
             } else {
-                console.log("query_alarm : Query succeeded.");
+                console.log("query_alarm : Query succeeded."+ JSON.stringify(data));
                 //var arr = [];
                 data.Items.forEach(function (item) {
                     console.log(" -", item.user_id + ": " + item.entity_id);
@@ -123,7 +120,7 @@ function insertAlarm(alarm) {
     });
 }
 
-move_alarm('a3','20211008');
+//move_alarm('a3','20211008');
 
 module.exports = {
     insertAlarm : insertAlarm,
