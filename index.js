@@ -6,7 +6,7 @@ exports.handler =  async function(event, context) {
     console.log(`move alarm - alarm date ${event.alarmDate} , alarm id - ${event.alarmId} `);
     if ( !event.alarmDate || !event.alarmId) {
       console.log('mandatory argument not provided');
-      return Error('Either alarmDate or alarmId should be provided');
+      return Error('Both alarmDate or alarmId should be provided');
     }
     await move_alarms.moveAlarm(event.alarmDate,event.alarmId);
 

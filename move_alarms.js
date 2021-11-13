@@ -12,9 +12,9 @@ AWS.config.update({
 var docClient = new AWS.DynamoDB.DocumentClient();
 
 
-async function moveAlarm(alarm_id , alarm_date) {
+async function moveAlarm(alarm_date , alarm_id) {
     // select old alarm using alarm_id 
-    console.log(` inside move_alarm - ${alarm_id} and ${alarm_date}`);
+    console.log(` inside move_alarm - alarm_id ${alarm_id} and  alarm_date ${alarm_date}`);
     var params = {
         TableName: 'user_alarms',
         IndexName: 'entity_id-index',
@@ -120,7 +120,7 @@ function insertAlarm(alarm) {
     });
 }
 
-//move_alarm('a3','20211008');
+//moveAlarm('20211010','a1');
 
 module.exports = {
     insertAlarm : insertAlarm,
