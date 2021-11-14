@@ -114,8 +114,8 @@ function insertAlarm(alarm) {
                 console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
                 reject(err);
             } else {
-                console.log("Added item: user_alarms", JSON.stringify(data, null, 2));
-                resolve(data);
+                console.log("Added item: user_alarms", entity_id);
+                resolve(entity_id);
             }
         });
     });
