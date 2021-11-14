@@ -20,9 +20,10 @@ exports.handler = async function (event, context) {
   }
   console.log("before calling moveAlarm " + JSON.stringify(alarmObj));
   let data = await move_alarms.moveAlarm(alarmObj.alarmDate, alarmObj.alarmId);
-  console.log("before return lambda function " + JSON.stringify(data));
+  console.log("before return lambda function " + data);
 
-  let responseBody = { description: "alarm moved successfully" }
+  let alarm_desc = `alarm moved successfully , new alarm ${data}`;
+  let responseBody = { description: alarm_desc };
 
   let response = {
     statusCode: 200,
