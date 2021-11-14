@@ -26,9 +26,10 @@ async function moveAlarm(alarm_date , alarm_id) {
   
     let alarm = await queryAlarm(params);
     // insert new alarm - post moving to new alarm
-    await insertAlarm(alarm[0]);
+    let data = await insertAlarm(alarm[0]);
     // delete old alarm
     await deleteAlarm(alarm[0]);
+    return data;
 }
 
 // query alarm using index - alarm_id
