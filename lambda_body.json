@@ -1,0 +1,95 @@
+{
+    "type": "block_actions",
+    "user": {
+        "id": "U02EY80NKAM",
+        "username": "tany.patil77",
+        "name": "tany.patil77",
+        "team_id": "T02EGJSRSCD"
+    },
+    "api_app_id": "A02F90YP2JJ",
+    "token": "pqCXZIRS34rO16EyPC21pb11",
+    "container": {
+        "channel_id": "C02EKKDHGDQ",
+        "is_ephemeral": false,
+        "message_ts": "1637489246.000100",
+        "type": "message"
+    },
+    "trigger_id": "2764782257537.2492638876421.bca5658cd1f93e11a53c324385f578af",
+    "team": {
+        "id": "T02EGJSRSCD",
+        "domain": "bills-yyp4270"
+    },
+    "enterprise": null,
+    "is_enterprise_install": false,
+    "channel": {
+        "id": "C02EKKDHGDQ",
+        "name": "bill-notification"
+    },
+    "message": {
+        "type": "message",
+        "subtype": "bot_message",
+        "text": "electricity bill for home due date 09-10-2021",
+        "ts": "1637489246.000100",
+        "bot_id": "B02FG7S88JJ",
+        "blocks": [
+            {
+                "type": "section",
+                "block_id": "i1E",
+                "fields": [
+                    {
+                        "type": "mrkdwn",
+                        "text": "electricity bill for home due date 09-10-2021",
+                        "verbatim": false
+                    }
+                ]
+            },
+            {
+                "type": "actions",
+                "block_id": "HCNS",
+                "elements": [
+                    {
+                        "type": "button",
+                        "action_id": "mj9q",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "Paid",
+                            "emoji": true
+                        },
+                        "style": "primary",
+                        "value": "a1"
+                    },
+                    {
+                        "type": "button",
+                        "action_id": "HNn",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "Snooze",
+                            "emoji": true
+                        },
+                        "style": "danger",
+                        "value": "snooze"
+                    }
+                ]
+            }
+        ]
+    },
+    "state": {
+        "values": {}
+    },
+    "response_url": "https:\/\/hooks.slack.com\/actions\/T02EGJSRSCD\/2775869284800\/kjvEL7TNqJuoMm6MxhhdgEqE",
+    "actions": [
+        {
+            "action_id": "mj9q",
+            "block_id": "HCNS",
+            "style": "primary",
+            "text": {
+                "type": "plain_text",
+                "text": "Paid",
+                "emoji": true
+            },
+            "type": "button",
+            "value": "a1",
+            "action_ts": "1637489269.050866"
+        }
+    ]
+}

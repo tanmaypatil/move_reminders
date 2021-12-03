@@ -1,4 +1,5 @@
 const move_alarms = require("./move_alarms");
+const uid_alarm = require('./alarm_uid');
 
 exports.handler = async function (event, context) {
   let alarmObj = {};
@@ -7,11 +8,10 @@ exports.handler = async function (event, context) {
   console.log(`move alarm - alarm date ${event.alarmDate} , alarm id - ${event.alarmId} `);
   if (!event.alarmDate || !event.alarmId) {
     console.log('not present in event object directly');
-    alarmObj = JSON.parse(event.body);
-    console.log('move alarm - body after parsing ' + JSON.stringify(alarmObj));
-    if (!alarmObj.alarmDate || !alarmObj.alarmId) {
-      console.log('mandatory argument not provided');
-      return Error('Both alarmDate or alarmId should be provided');
+    alarmObj.alarmId = uid_alarm.getUidOfAlarm(event.body);
+    if ( !alarmObj.alarmId) {
+      console.log('mandatory argument not provided : alarmId not present');
+      return Error('alarmId should be provided');
     }
   }
   else {
@@ -32,6 +32,5 @@ exports.handler = async function (event, context) {
     body: JSON.stringify(responseBody)
   };
   return response;
-
 
 }

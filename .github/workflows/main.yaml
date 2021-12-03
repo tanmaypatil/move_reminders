@@ -11,7 +11,7 @@ jobs:
       with:
         type: 'zip'
         filename: 'move_alarm.zip'
-        exclusions: '*.git* /*node_modules/*  launch.json *.zip *.sh *.bat *.md LICENSE'
+        exclusions: '*.git* /*node_modules/*  lambda_body.json lambda_payload.json launch.json *.zip *.sh *.bat *.md LICENSE'
     - name: upload lambda function zip file
       run: |
        aws lambda update-function-code --function-name move-alarms --zip-file fileb://move_alarm.zip
