@@ -1,7 +1,6 @@
 const querystring = require('querystring');
 
 function getUidOfAlarm(str) {
-    let uid = null;
     let payload = querystring.unescape(str);
     let bare_payload = payload.substr(8);
     let obj = JSON.parse(bare_payload);
