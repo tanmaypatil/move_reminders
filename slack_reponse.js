@@ -3,7 +3,7 @@ const axios = require('axios').default;
 
 function create_slack_response(slack_url, message) {
     console.log('sending slack response ' + message);
-    axios.post(process.env.SLACK_ENDPOINT,
+    axios.post(slack_url,
         {
             text: message
         }).then(function (response) {

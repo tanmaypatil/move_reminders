@@ -1,7 +1,7 @@
 const move_alarms = require("./move_alarms");
 const uid_alarm = require('./alarm_uid');
 const slack_resp = require('./slack_response');
-const { create_slack_response } = require("./slack_reponse");
+
 
 exports.handler = async function (event, context) {
   let alarmObj = {};
@@ -26,7 +26,7 @@ exports.handler = async function (event, context) {
   console.log("before return lambda function " + data);
   let alarm_desc = `alarm moved successfully , new alarm on  ${data}`;
   console.log('sending a response to slack - message ');
-  create_slack_response(alarmObj.response_url , alarm_desc);
+  slack_resp.create_slack_response(alarmObj.response_url , alarm_desc);
   console.log('post sending a response to slack - message ');
   let responseBody = { description: alarm_desc };
   let response = {
