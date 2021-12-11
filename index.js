@@ -27,7 +27,7 @@ exports.handler = async function (event, context) {
   let alarm_desc = `alarm moved successfully , new alarm on  ${data}`;
   console.log('sending a response to slack - message ');
   let resp = await slack_resp.create_slack_response(alarmObj.response_url , alarm_desc);
-  console.log('post sending a response to slack - message '+resp);
+  console.log('post sending a response to slack - message '+JSON.stringify(resp));
   let responseBody = { description: alarm_desc };
   let response = {
     statusCode: 200,
