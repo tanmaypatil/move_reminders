@@ -18,6 +18,7 @@
   "homepage": "https://github.com/tanmaypatil/move_reminders#readme",
   "dependencies": {
     "aws-sdk": "^2.1018.0",
+    "axios": "^0.24.0",
     "date-fns": "^2.25.0",
     "dotenv": "^10.0.0",
     "uuid": "^8.3.2"

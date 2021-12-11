@@ -24,7 +24,10 @@ async function moveAlarm(alarm_date , alarm_id) {
         }
     };
   
-    let alarm = await queryAlarm(params);
+    let alarm = await queryAlarm(params,alarm_id);
+    if ( alarm.length === 0) {
+        return "NO_ALARM";
+    }
     // insert new alarm - post moving to new alarm
     let data = await insertAlarm(alarm[0]);
     // delete old alarm
@@ -33,7 +36,7 @@ async function moveAlarm(alarm_date , alarm_id) {
 }
 
 // query alarm using index - alarm_id
-async function queryAlarm(params) {
+async function queryAlarm(params,alarm_id) {
     return new Promise((resolve, reject) => {
         docClient.query(params, function (err, data) {
             if (err) {
@@ -41,6 +44,11 @@ async function queryAlarm(params) {
                 reject(err);
             } else {
                 console.log("query_alarm : Query succeeded."+ JSON.stringify(data));
+                if ( data.Count === 0) {
+                    console.log("alarm not found : "+alarm_id);
+                    let arr = [];
+                    resolve(arr);
+                }
                 //var arr = [];
                 data.Items.forEach(function (item) {
                     console.log(" -", item.user_id + ": " + item.entity_id);
@@ -115,7 +123,8 @@ function insertAlarm(alarm) {
                 reject(err);
             } else {
                 console.log("Added item: user_alarms", entity_id);
-                resolve(entity_id);
+                let date_str = date_util.displayDate(new_alarmdate);
+                resolve(str);
             }
         });
     });

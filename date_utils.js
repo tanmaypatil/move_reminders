@@ -45,9 +45,16 @@ function addDuration(durationType , duration ,contextDate ) {
     return out_str;
 }
 
+function displayDate(dateStr) {
+    let d = dateStr ? parse(dateStr,'yyyyMMdd',new Date()) : new Date();
+    let displayStr = format(d,'dd-MM-yyyy HH:mm:ss');
+    return displayStr;
+}
+
 
 module.exports = {
     getTodaysDate : getTodaysDate,
     getCurrentDateWithTime : getCurrentDateWithTime,
-    addDuration :  addDuration
+    addDuration :  addDuration,
+    displayDate : displayDate
 }
