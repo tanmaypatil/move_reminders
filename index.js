@@ -26,8 +26,8 @@ exports.handler = async function (event, context) {
   console.log("before return lambda function " + data);
   let alarm_desc = `alarm moved successfully , new alarm on  ${data}`;
   console.log('sending a response to slack - message ');
-  slack_resp.create_slack_response(alarmObj.response_url , alarm_desc);
-  console.log('post sending a response to slack - message ');
+  let resp = await slack_resp.create_slack_response(alarmObj.response_url , alarm_desc);
+  console.log('post sending a response to slack - message '+resp);
   let responseBody = { description: alarm_desc };
   let response = {
     statusCode: 200,
