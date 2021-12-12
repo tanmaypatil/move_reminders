@@ -12,7 +12,7 @@ AWS.config.update({
 var docClient = new AWS.DynamoDB.DocumentClient();
 
 
-async function moveAlarm(alarm_date , alarm_id) {
+async function moveAlarm(alarm_date, alarm_id, user_action) {
     // select old alarm using alarm_id 
     console.log(` inside move_alarm - alarm_id ${alarm_id} and  alarm_date ${alarm_date}`);
     var params = {
@@ -23,29 +23,29 @@ async function moveAlarm(alarm_date , alarm_id) {
             ':entity_id': alarm_id
         }
     };
-  
-    let alarm = await queryAlarm(params,alarm_id);
-    if ( alarm.length === 0) {
-        return "NO_ALARM";
+
+    let alarm = await queryAlarm(params, alarm_id);
+    if (alarm.length === 0) {
+        return setDescription( "NO_ALARM", alarm_id);
     }
     // insert new alarm - post moving to new alarm
-    let data = await insertAlarm(alarm[0]);
+    let data = await insertAlarm(alarm[0], user_action);
     // delete old alarm
     await deleteAlarm(alarm[0]);
-    return data;
+    return setDescription(user_action,data);
 }
 
 // query alarm using index - alarm_id
-async function queryAlarm(params,alarm_id) {
+async function queryAlarm(params, alarm_id) {
     return new Promise((resolve, reject) => {
         docClient.query(params, function (err, data) {
             if (err) {
                 console.error("query_alarm : Unable to query. Error:", JSON.stringify(err, null, 2));
                 reject(err);
             } else {
-                console.log("query_alarm : Query succeeded."+ JSON.stringify(data));
-                if ( data.Count === 0) {
-                    console.log("alarm not found : "+alarm_id);
+                console.log("query_alarm : Query succeeded." + JSON.stringify(data));
+                if (data.Count === 0) {
+                    console.log("alarm not found : " + alarm_id);
                     let arr = [];
                     resolve(arr);
                 }
@@ -62,11 +62,11 @@ async function queryAlarm(params,alarm_id) {
     });
 }
 
-async function deleteAlarm(alarm ) {
-    console.log('inside deleteAlarm '+alarm.alarm_date);
+async function deleteAlarm(alarm) {
+    console.log('inside deleteAlarm ' + alarm.alarm_date);
     var delParams = {
         TableName: "user_alarms",
-        Key:{
+        Key: {
             "alarm_type": "reminder",
             "alarm_date": alarm.alarm_date
         },
@@ -88,18 +88,26 @@ async function deleteAlarm(alarm ) {
 
 
 
-function insertAlarm(alarm) {
+function insertAlarm(alarm, user_action) {
     return new Promise(function (resolve, reject) {
         console.log("insertAlarm : IN");
         let old_date = alarm.alarm_date;
-        let duration_type = alarm.frequency;
+        let duration_type = 'Days';
+        switch (user_action) {
+            case 'snooze':
+                duration_type = 'Days';
+                break;
+            default:
+                duration_type = alarm.frequency;
+        }
+        console.log('insertAlarm : user_action ' + user_action + ' duration type ');
         let new_alarmdate = date_util.addDuration(duration_type, 1, old_date);
         let current_datetime = date_util.getCurrentDateWithTime();
         console.log('insertAlarm : old_date is : ' + old_date);
         console.log('insertAlarm : new_alarmdate is : ' + new_alarmdate);
         // generate new alarm id 
-        let entity_id  = uuidv4();
-        console.log('insertAlarm new alarm id '+entity_id);
+        let entity_id = uuidv4();
+        console.log('insertAlarm new alarm id ' + entity_id);
         // want to insert a new alarm with new_alarmdate 
         var params = {
             TableName: "user_alarms",
@@ -112,7 +120,7 @@ function insertAlarm(alarm) {
                 "frequency": alarm.frequency,
                 "day": alarm.day,
                 "type": "generated",
-                "time_stamp" : current_datetime
+                "time_stamp": current_datetime
 
             }
         };
@@ -130,11 +138,36 @@ function insertAlarm(alarm) {
     });
 }
 
+
+function setDescription(user_action, data) {
+    let descriptionObj = { code : "DEFAULT" , description : "default"} ;
+    switch (data) {
+        case "NO_ALARM":
+            descriptionObj.code = 'NO_ALARM';
+            descriptionObj.description = "alarm not found id :"+ data;
+            break;
+        default:
+            switch (user_action) {
+                case "snooze":
+                    descriptionObj.code = 'snooze';
+                    descriptionObj.description = "Alarm snoozed by 1 day to "+ data;
+                    break;
+                case "paid":
+                    descriptionObj.code = 'done';
+                    descriptionObj.description = "Alarm moved successfully to  "+ data;
+                    break;
+            }
+    }
+    console.log('setDescription : '+ JSON.stringify(descriptionObj));
+    return descriptionObj;
+
+}
+
 //moveAlarm('20211010','a1');
 
 module.exports = {
-    insertAlarm : insertAlarm,
-    moveAlarm : moveAlarm
+    insertAlarm: insertAlarm,
+    moveAlarm: moveAlarm
 
 }
 

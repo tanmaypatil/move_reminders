@@ -22,9 +22,10 @@ exports.handler = async function (event, context) {
     alarmObj.alarmDate = event.alarmDate;
   }
   console.log("before calling moveAlarm " + JSON.stringify(alarmObj));
-  let data = await move_alarms.moveAlarm(alarmObj.alarmDate, alarmObj.alarmId);
+  let data = await move_alarms.moveAlarm(alarmObj.alarmDate, alarmObj.alarmId,alarmObj.user_action);
   console.log("before return lambda function " + data);
-  let alarm_desc = `alarm moved successfully , new alarm on  ${data}`;
+  let alarm_desc = null;
+  alarm_desc = data.description;
   console.log('sending a response to slack - message ');
   let resp = await slack_resp.create_slack_response(alarmObj.response_url , alarm_desc);
   console.log('post sending a response to slack - message '+JSON.stringify(resp));
