@@ -26,13 +26,13 @@ async function moveAlarm(alarm_date, alarm_id, user_action) {
 
     let alarm = await queryAlarm(params, alarm_id);
     if (alarm.length === 0) {
-        return setDescription( "NO_ALARM", alarm_id);
+        return setDescription( user_action, alarm_id,"NO_ALARM");
     }
     // insert new alarm - post moving to new alarm
     let data = await insertAlarm(alarm[0], user_action);
     // delete old alarm
     await deleteAlarm(alarm[0]);
-    return setDescription(user_action,data);
+    return setDescription(user_action,data ,"ALARM_PRESENT");
 }
 
 // query alarm using index - alarm_id
@@ -139,9 +139,10 @@ function insertAlarm(alarm, user_action) {
 }
 
 
-function setDescription(user_action, data) {
+function setDescription(user_action, data ,alarm_present) {
     let descriptionObj = { code : "DEFAULT" , description : "default"} ;
-    switch (data) {
+    console.log(`setDescription - user_action : ${user_action} , data : ${data} alarm_present : ${alarm_present}`);
+    switch (alarm_present) {
         case "NO_ALARM":
             descriptionObj.code = 'NO_ALARM';
             descriptionObj.description = "alarm not found id :"+ data;
@@ -152,7 +153,7 @@ function setDescription(user_action, data) {
                     descriptionObj.code = 'snooze';
                     descriptionObj.description = "Alarm snoozed by 1 day to "+ data;
                     break;
-                case "paid":
+                case "done":
                     descriptionObj.code = 'done';
                     descriptionObj.description = "Alarm moved successfully to  "+ data;
                     break;
