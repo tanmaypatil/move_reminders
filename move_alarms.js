@@ -132,7 +132,7 @@ function insertAlarm(alarm, user_action) {
             } else {
                 console.log("Added item: user_alarms", entity_id);
                 let date_str = date_util.displayDate(new_alarmdate);
-                resolve(str);
+                resolve(date_str);
             }
         });
     });
