@@ -31,15 +31,25 @@ function addDuration(durationType , duration ,contextDate ) {
         case 'Months':
         case 'Month' :
         case 'Monthly' :
+        case 'monthly' :
+        case 'month' :
+        case 'months' :  
             durationObj.months = duration;
             break;
         case 'Days' :
         case 'Day' :
+        case 'day' :
+        case 'days' :
+        case 'daily' :
+        case 'Daily' :
             durationObj.days = duration;
             break;
         case 'Years' : 
         case 'Yearly' :
         case 'Year' :
+        case 'year' :
+        case 'years' :
+        case 'yearly' :
             durationObj.years = duration;
             break;
         default : 
