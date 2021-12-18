@@ -30,11 +30,17 @@ function addDuration(durationType , duration ,contextDate ) {
     switch(durationType) {
         case 'Months':
         case 'Month' :
+        case 'Monthly' :
             durationObj.months = duration;
             break;
         case 'Days' :
         case 'Day' :
             durationObj.days = duration;
+            break;
+        case 'Years' : 
+        case 'Yearly' :
+        case 'Year' :
+            durationObj.years = duration;
             break;
         default : 
             durationObj.months = duration;

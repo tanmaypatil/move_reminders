@@ -14,7 +14,7 @@ var docClient = new AWS.DynamoDB.DocumentClient();
 
 async function moveAlarm(alarm_date, alarm_id, user_action) {
     // select old alarm using alarm_id 
-    console.log(` inside move_alarm - alarm_id ${alarm_id} and  alarm_date ${alarm_date}`);
+    console.log(` inside move_alarm - alarm_id ${alarm_id} and  alarm_date ${alarm_date} and user_action ${user_action}`);
     var params = {
         TableName: 'user_alarms',
         IndexName: 'entity_id-index',
@@ -90,7 +90,7 @@ async function deleteAlarm(alarm) {
 
 function insertAlarm(alarm, user_action) {
     return new Promise(function (resolve, reject) {
-        console.log("insertAlarm : IN");
+        console.log("insertAlarm : IN - user_action "+user_action);
         let old_date = alarm.alarm_date;
         let duration_type = 'Days';
         switch (user_action) {
@@ -100,7 +100,7 @@ function insertAlarm(alarm, user_action) {
             default:
                 duration_type = alarm.frequency;
         }
-        console.log('insertAlarm : user_action ' + user_action + ' duration type ');
+        console.log('insertAlarm : user_action ' + user_action + ' duration type '+duration_type);
         let new_alarmdate = date_util.addDuration(duration_type, 1, old_date);
         let current_datetime = date_util.getCurrentDateWithTime();
         console.log('insertAlarm : old_date is : ' + old_date);
@@ -120,8 +120,8 @@ function insertAlarm(alarm, user_action) {
                 "frequency": alarm.frequency,
                 "day": alarm.day,
                 "type": "generated",
-                "time_stamp": current_datetime
-
+                "time_stamp": current_datetime,
+                "extra_data" : alarm.extra_data
             }
         };
         console.log("insertAlarm : adding into user_alarms");
