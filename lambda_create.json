@@ -1,0 +1,89 @@
+{
+    "resource": "/",
+    "path": "/",
+    "httpMethod": "POST",
+    "headers": {
+        "Accept": "application/json,*/*",
+        "Accept-Encoding": "gzip,deflate",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Host": "60uwnx5rw6.execute-api.ap-south-1.amazonaws.com",
+        "User-Agent": "Slackbot 1.0 (+https://api.slack.com/robots)",
+        "X-Amzn-Trace-Id": "Root=1-61ca058e-7b88f5e61e1a453268eb261b",
+        "X-Forwarded-For": "34.201.152.197",
+        "X-Forwarded-Port": "443",
+        "X-Forwarded-Proto": "https",
+        "X-Slack-Request-Timestamp": "1640629645",
+        "X-Slack-Signature": "v0=c7b12aca86fdd3384e8f1864948386f325dcf3be7c7cfa9d7663c61bba8d6412"
+    },
+    "multiValueHeaders": {
+        "Accept": [
+            "application/json,*/*"
+        ],
+        "Accept-Encoding": [
+            "gzip,deflate"
+        ],
+        "Content-Type": [
+            "application/x-www-form-urlencoded"
+        ],
+        "Host": [
+            "60uwnx5rw6.execute-api.ap-south-1.amazonaws.com"
+        ],
+        "User-Agent": [
+            "Slackbot 1.0 (+https://api.slack.com/robots)"
+        ],
+        "X-Amzn-Trace-Id": [
+            "Root=1-61ca058e-7b88f5e61e1a453268eb261b"
+        ],
+        "X-Forwarded-For": [
+            "34.201.152.197"
+        ],
+        "X-Forwarded-Port": [
+            "443"
+        ],
+        "X-Forwarded-Proto": [
+            "https"
+        ],
+        "X-Slack-Request-Timestamp": [
+            "1640629645"
+        ],
+        "X-Slack-Signature": [
+            "v0=c7b12aca86fdd3384e8f1864948386f325dcf3be7c7cfa9d7663c61bba8d6412"
+        ]
+    },
+    "queryStringParameters": null,
+    "multiValueQueryStringParameters": null,
+    "pathParameters": null,
+    "stageVariables": null,
+    "requestContext": {
+        "resourceId": "prbp9mmakh",
+        "resourcePath": "/",
+        "httpMethod": "POST",
+        "extendedRequestId": "LBXOSFXcBcwFTZg=",
+        "requestTime": "27/Dec/2021:18:27:26 +0000",
+        "path": "/dev",
+        "accountId": "204215401117",
+        "protocol": "HTTP/1.1",
+        "stage": "dev",
+        "domainPrefix": "60uwnx5rw6",
+        "requestTimeEpoch": 1640629646413,
+        "requestId": "caacdf6b-ba77-4e88-bca1-f2a76466b1fa",
+        "identity": {
+            "cognitoIdentityPoolId": null,
+            "accountId": null,
+            "cognitoIdentityId": null,
+            "caller": null,
+            "sourceIp": "34.201.152.197",
+            "principalOrgId": null,
+            "accessKey": null,
+            "cognitoAuthenticationType": null,
+            "cognitoAuthenticationProvider": null,
+            "userArn": null,
+            "userAgent": "Slackbot 1.0 (+https://api.slack.com/robots)",
+            "user": null
+        },
+        "domainName": "60uwnx5rw6.execute-api.ap-south-1.amazonaws.com",
+        "apiId": "60uwnx5rw6"
+    },
+    "body": "token=pqCXZIRS34rO16EyPC21pb11&team_id=T02EGJSRSCD&team_domain=bills-yyp4270&channel_id=C02EKKDHGDQ&channel_name=bill-notification&user_id=U02EY80NKAM&user_name=tany.patil77&command=%2Falarm&text=create+alarm+due+on&api_app_id=A02F90YP2JJ&is_enterprise_install=false&response_url=https%3A%2F%2Fhooks.slack.com%2Fcommands%2FT02EGJSRSCD%2F2886145261587%2F0v1WWSMAsz10qOS7aZemtqOn&trigger_id=2888404157860.2492638876421.75b9ee36440dafc39ffcf154566ed50d",
+    "isBase64Encoded": false
+}
