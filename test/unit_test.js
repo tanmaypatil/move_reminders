@@ -59,4 +59,47 @@ describe('Validate a basic reggex ', function () {
   });
 });
 
+//create alarm due on (?<dueDate>[0-9-]*)(?<repeat> repeat* monthly|daily)*
+
+describe('Validate a basic reggex for capturing alarm frequency ', function () {
+  console.log('fourth test');
+  describe('regexp()', function () {
+    it('should be able to get extract due date and frequency using regex', function () {
+      let str = 'create alarm due on 01-01-2022 repeat monthly';
+      let regexpNames = /create alarm due on (?<dueDate>[0-9-]*)\s(?<repeat>repeat* monthly|daily)*/mg;
+      let match = regexpNames.exec(str);
+      let dueDate = '01-01-2022'
+      let repeat = 'repeat monthly';
+      do {
+        console.log(`dueDate ${match.groups.dueDate}`);
+        console.log(`repeat ${match.groups.repeat}`);
+        assert.equal(dueDate, `${match.groups.dueDate}`);
+        assert.equal(repeat, `${match.groups.repeat}`);
+
+      } while ((match = regexpNames.exec(str)) !== null)
+
+    })
+  });
+});
+
+describe('Validate a basic regex when no alarm frequency is given ', function () {
+  console.log('fourth test');
+  describe('regexp()', function () {
+    it('should be able to get extract due date and frequency using regex', function () {
+      let str = 'create alarm due on 01-01-2022 ';
+      let regexpNames = /create alarm due on (?<dueDate>[0-9-]*)(?<repeat>\srepeat* monthly|daily)*/mg;
+      let match = regexpNames.exec(str);
+      let dueDate = '01-01-2022'
+      let repeat = null;
+      do {
+        console.log(`dueDate ${match.groups.dueDate}`);
+        console.log(`repeat ${match.groups.repeat}`);
+        assert.equal(dueDate, `${match.groups.dueDate}`);
+        assert.equal(undefined, match.groups.repeat);
+      } while ((match = regexpNames.exec(str)) !== null)
+
+    })
+  });
+});
+
 
