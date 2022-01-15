@@ -53,7 +53,7 @@ function create_alarm_command(command) {
     //extract command 
     console.log('create_alarm_command : before extract_commandinfo ');
     let commandObj = extract_commandinfo(command);
-    let regexp = /create alarm due on (?<dueDate>[0-9-]*)\s(?<desc>for.*(?=repeat|\n))(?<repeat>repeat* monthly|daily)*/mg;
+    let regexp = /create alarm due on (?<dueDate>[0-9-]*)\s(?<desc>for.*(?=repeat|\n))(?<repeat>repeat* monthly|daily|yearly)*/mg;
     //command is wrapped in string ,use regex to get values
     let match = regexp.exec(commandObj.text);
     let dueDate = '';
