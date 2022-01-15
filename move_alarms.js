@@ -92,16 +92,22 @@ function insertAlarm(alarm, user_action) {
     return new Promise(function (resolve, reject) {
         console.log("insertAlarm : IN - user_action "+user_action);
         let old_date = alarm.alarm_date;
+        let new_alarmdate = old_date;
         let duration_type = 'Days';
         switch (user_action) {
             case 'snooze':
                 duration_type = 'Days';
+                new_alarmdate = date_util.addDuration(duration_type, 1, old_date);
+                break;
+            case 'create' :
+                // creation will not require computation of next date.
+                duration_type = alarm.frequency;
                 break;
             default:
                 duration_type = alarm.frequency;
+                new_alarmdate = date_util.addDuration(duration_type, 1, old_date);
         }
         console.log('insertAlarm : user_action ' + user_action + ' duration type '+duration_type);
-        let new_alarmdate = date_util.addDuration(duration_type, 1, old_date);
         let current_datetime = date_util.getCurrentDateWithTime();
         console.log('insertAlarm : old_date is : ' + old_date);
         console.log('insertAlarm : new_alarmdate is : ' + new_alarmdate);
@@ -157,6 +163,10 @@ function setDescription(user_action, data ,alarm_present) {
                     descriptionObj.code = 'done';
                     descriptionObj.description = "Alarm moved successfully to  "+ data;
                     break;
+                case "create" :
+                    descriptionObj.code = 'create';
+                    descriptionObj.description = "Alarm created successfully to  "+ data;
+
             }
     }
     console.log('setDescription : '+ JSON.stringify(descriptionObj));
@@ -165,10 +175,10 @@ function setDescription(user_action, data ,alarm_present) {
 }
 
 //moveAlarm('20211010','a1');
-
 module.exports = {
     insertAlarm: insertAlarm,
-    moveAlarm: moveAlarm
+    moveAlarm: moveAlarm,
+    setDescription:setDescription
 
 }
 

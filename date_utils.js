@@ -67,10 +67,18 @@ function displayDate(dateStr) {
     return displayStr;
 }
 
+function getDateFromCommand(dateStr){
+    let d = contextDate ? parse(contextDate,'yyyy-MM-dd',new Date()) : new Date();
+    let standardFormat = format(d,'yyyyMMdd');
+    console.log(`getDateFromCommand ${standardFormat}`);
+    return standardFormat;
+}
+
 
 module.exports = {
     getTodaysDate : getTodaysDate,
     getCurrentDateWithTime : getCurrentDateWithTime,
     addDuration :  addDuration,
-    displayDate : displayDate
+    displayDate : displayDate,
+    getDateFromCommand : getDateFromCommand
 }
