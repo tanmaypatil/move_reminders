@@ -11,7 +11,7 @@ exports.handler = async function (event, context) {
   console.log(`move alarm - alarm date ${event.alarmDate} , alarm id - ${event.alarmId} `);
 
   console.log('index.js - check for command, move or create alarm');
-  let description = alarm_util.interpret_command(event.body);
+  description = alarm_util.interpret_command(event.body);
 
   /*
   alarmObj = uid_alarm.getUidOfAlarm(event.body);
