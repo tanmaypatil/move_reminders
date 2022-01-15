@@ -160,6 +160,21 @@ describe('should be able to extract command and response url from body  ', funct
   });
 });
 
+describe('Validate to see if we can accept different alarm frequency   ', function () {
+  describe('regexp()', function () {
+    it('should be able to get alarm frequency using regex', function () {
+      let str = 'create alarm due on 2022-01-29 for amruta and swapnil anniversary repeat  yearly';
+      let regexpNames = /create alarm due on (?<dueDate>[0-9-]*)\s+(?<desc>for.*(?=repeat))(?<repeat>repeat\s*(monthly|yearly|daily))*/mg
+      let repeat ='repeat  yearly';
+      let match = regexpNames.exec(str);
+      do {
+        console.log(`repeat ${match.groups.repeat}`);
+        assert.equal(repeat, match.groups.repeat);
+      } while ((match = regexpNames.exec(str)) !== null)
+    })
+  });
+});
+
 
 
 
