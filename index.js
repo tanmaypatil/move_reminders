@@ -10,7 +10,7 @@ exports.handler = async function (event, context) {
   console.log(`move alarm - alarm date ${event.alarmDate} , alarm id - ${event.alarmId} `);
 
   console.log('index.js - check for command, move or create alarm');
-  description = alarm_util.interpret_command(event.body);
+  description = await alarm_util.interpret_command(event.body);
   console.log('index.js - post interpret_command'+description);
 
   let responseBody = { description: description };
