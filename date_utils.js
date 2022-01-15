@@ -67,7 +67,7 @@ function displayDate(dateStr) {
     return displayStr;
 }
 
-function getDateFromCommand(dateStr){
+function getDateFromCommand(contextDate){
     let d = contextDate ? parse(contextDate,'yyyy-MM-dd',new Date()) : new Date();
     let standardFormat = format(d,'yyyyMMdd');
     console.log(`getDateFromCommand ${standardFormat}`);

@@ -1,6 +1,7 @@
 const { AssertionError } = require('assert');
 var assert = require('assert');
 const querystring = require('querystring');
+const date_util = require('../date_utils');
 describe('Array', function () {
   describe('#indexOf()', function () {
     it('should return -1 when the value is not present', function () {
@@ -132,7 +133,7 @@ describe('Validate a basic frequency  ', function () {
     it('should be able to get alarm frequency using regex', function () {
       let str = 'repeat  monthly';
       let regexpNames = /(?<repeat>(?<=repeat\s+)(monthly|daily|yearly))/mg;
-      let repeat ='monthly';
+      let repeat = 'monthly';
       let match = regexpNames.exec(str);
       do {
         console.log(`repeat ${match.groups.repeat}`);
@@ -147,15 +148,15 @@ describe('Validate a basic frequency  ', function () {
 describe('should be able to extract command and response url from body  ', function () {
   describe('extractCommandText()', function () {
     it('should be able to get command and response url ', function () {
-      let body = 'token=pqCXZIRS34rO16EyPC21pb11&team_id=T02EGJSRSCD&team_domain=bills-yyp4270&channel_id=C02EKKDHGDQ&channel_name=bill-notification&user_id=U02EY80NKAM&user_name=tany.patil77&command=%2Falarm&text=create+alarm+due+on&api_app_id=A02F90YP2JJ&is_enterprise_install=false&response_url=https%3A%2F%2Fhooks.slack.com%2Fcommands%2FT02EGJSRSCD%2F2886145261587%2F0v1WWSMAsz10qOS7aZemtqOn&trigger_id=2888404157860.2492638876421.75b9ee36440dafc39ffcf154566ed50d'; 
+      let body = 'token=pqCXZIRS34rO16EyPC21pb11&team_id=T02EGJSRSCD&team_domain=bills-yyp4270&channel_id=C02EKKDHGDQ&channel_name=bill-notification&user_id=U02EY80NKAM&user_name=tany.patil77&command=%2Falarm&text=create+alarm+due+on&api_app_id=A02F90YP2JJ&is_enterprise_install=false&response_url=https%3A%2F%2Fhooks.slack.com%2Fcommands%2FT02EGJSRSCD%2F2886145261587%2F0v1WWSMAsz10qOS7aZemtqOn&trigger_id=2888404157860.2492638876421.75b9ee36440dafc39ffcf154566ed50d';
       let str = querystring.unescape(body);
       let searchParams = new URLSearchParams(str);
       let command = searchParams.get('command');
       console.log(command);
-      assert.equal("/alarm",command);
+      assert.equal("/alarm", command);
       let text = searchParams.get('text');
-      console.log("command text is :"+text);
-      assert.equal("create alarm due on",text);
+      console.log("command text is :" + text);
+      assert.equal("create alarm due on", text);
     })
   });
 });
@@ -165,7 +166,7 @@ describe('Validate to see if we can accept different alarm frequency   ', functi
     it('should be able to get alarm frequency using regex', function () {
       let str = 'create alarm due on 2022-01-29 for amruta and swapnil anniversary repeat  yearly';
       let regexpNames = /create alarm due on (?<dueDate>[0-9-]*)\s+(?<desc>for.*(?=repeat))(?<repeat>repeat\s*(monthly|yearly|daily))*/mg
-      let repeat ='repeat  yearly';
+      let repeat = 'repeat  yearly';
       let match = regexpNames.exec(str);
       do {
         console.log(`repeat ${match.groups.repeat}`);
@@ -175,6 +176,14 @@ describe('Validate to see if we can accept different alarm frequency   ', functi
   });
 });
 
-
-
-
+describe('Validate date functions', function () {
+  describe('dateformat()', function () {
+    it('should be able to convert date into standarformat - yyyymmdd', function () {
+      let contextDateStr = '2022-01-29';
+      let d = date_util.getDateFromCommand(contextDateStr);
+      console.log('standard format date ' + d);
+      assert.equal('20220129', d);
+    })
+  }
+  )
+});
