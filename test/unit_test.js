@@ -131,7 +131,7 @@ describe('Validate a basic frequency  ', function () {
   describe('regexp()', function () {
     it('should be able to get alarm frequency using regex', function () {
       let str = 'repeat  monthly';
-      let regexpNames = /(?<repeat>(?<=repeat\s+)monthly|daily)/mg;
+      let regexpNames = /(?<repeat>(?<=repeat\s+)(monthly|daily|yearly))/mg;
       let repeat ='monthly';
       let match = regexpNames.exec(str);
       do {

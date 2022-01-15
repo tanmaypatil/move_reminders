@@ -31,7 +31,7 @@ async function  interpret_command(str) {
 }
 
 function extract_frequency(repeat) {
-    let regexp = /(?<repeat>(?<=repeat\s+)monthly|daily|yearly)/mg;
+    let regexp = /(?<repeat>(?<=repeat\s+)(monthly|daily|yearly))/mg;
     let match = regexp.exec(repeat);
     let frequency = match.groups.repeat;
     console.log('extract_frequency :' + frequency);
