@@ -6,7 +6,7 @@ const alarm_util = require('./move_alarms');
 const slack_resp = require('./slack_response');
 
 
-function interpret_command(str) {
+async function  interpret_command(str) {
     let response_url= null;
     let return_data = {};
     let payload = querystring.unescape(str);
@@ -15,7 +15,7 @@ function interpret_command(str) {
     if (index != -1) {
         // it means that slack command to create alarm
         console.log('interpret_command , a command to create the new alarm');
-        return_data = create_alarm_command(payload);
+        return_data = await create_alarm_command(payload);
         response_url = return_data.response_url;
     }
     else {
@@ -49,7 +49,7 @@ function extract_commandinfo(str) {
     return { text : text , command : command , response_url : response_url };
 }
 
-function create_alarm_command(command) {
+async function create_alarm_command(command) {
     //extract command 
     console.log('create_alarm_command : before extract_commandinfo ');
     let commandObj = extract_commandinfo(command);
