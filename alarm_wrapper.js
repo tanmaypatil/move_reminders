@@ -20,7 +20,8 @@ async function  interpret_command(str) {
     }
     else {
         let alarmObj = fetch_alarm.getUidOfAlarm(payload);
-        return_data = await alarm_util.moveAlarm(alarmObj.alarmDate, alarmObj.alarmId, alarmObj.user_action);
+        console.log ("interpret_command -alarmObj "+ JSON.stringify(alarmObj));
+        return_data = await alarm_util.moveAlarm(alarmObj.alarmDate, alarmObj.uid, alarmObj.user_action);
         response_url  = alarmObj.response_url;
         console.log("interpret_command - After moveAlarm function " + return_data.description);
     }
