@@ -63,7 +63,7 @@ function addDuration(durationType , duration ,contextDate ) {
 
 function displayDate(dateStr) {
     let d = dateStr ? parse(dateStr,'yyyyMMdd',new Date()) : new Date();
-    let displayStr = format(d,'dd-MM-yyyy HH:mm:ss');
+    let displayStr = format(d,'dd-MM-yyyy');
     return displayStr;
 }
 

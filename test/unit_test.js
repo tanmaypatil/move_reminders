@@ -2,6 +2,7 @@ const { AssertionError } = require('assert');
 var assert = require('assert');
 const querystring = require('querystring');
 const date_util = require('../date_utils');
+var parse = require('date-fns/parse');
 describe('Array', function () {
   describe('#indexOf()', function () {
     it('should return -1 when the value is not present', function () {
@@ -186,4 +187,18 @@ describe('Validate date functions', function () {
     })
   }
   )
+});
+
+//1642325672864
+describe('Convert date into seconds', function () {
+  describe('dateformat()', function () {
+    it('should be able to convert seconds into date', function () {
+      let timestamp = Math.trunc(1642244189600 / 1000);
+      console.log('timestamp '+timestamp);
+      let contextDateStr = timestamp ;
+      let d = parse(contextDateStr,'tt',new Date());
+      console.log('standard format date ' + d);
+      //assert.equal('20220129', d);
+    })
+  });
 });
